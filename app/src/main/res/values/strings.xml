@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MiddleProjectApplication</string>
+    <string name="add_contact">add contact</string>
+    <string name="show_contacts">show contacts</string>
+    <string name="enter_full_name">Enter full name</string>
+    <string name="enter_number_phone">Enter number phone</string>
+    <string name="enter_email_address">Enter email address</string>
+    <string name="enter_home_address">Enter home address</string>
+    <string name="take_picture">take picture</string>
+    <string name="enter_web_address">Enter web address</string>
+    <string name="pick_birth_date">pick birth date</string>
+    <string name="pick_time_to_call">pick time to call</string>
+    <string name="birthday_chosen">Birthday chosen:</string>
+    <string name="call_time_chosen">Call time chosen:</string>
+    <string name="pick_best_days">pick best days</string>
+    <string name="best_days">Best days:</string>
+</resources>
