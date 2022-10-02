@@ -16,4 +16,6 @@
     <string name="call_time_chosen">זמן להתקשר שנבחר:</string>
     <string name="pick_best_days">בחר ימים</string>
     <string name="best_days">ימים:</string>
+    <string name="save">שמור</string>
+    <string name="back">חזור</string>
 </resources>
