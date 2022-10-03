@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">אפליקציית פרויקט אמצע</string>
     <string name="add_contact">הוסף איש קשר</string>
-    <string name="show_contact">"הצג "</string>
     <string name="show_contacts">הצג אנשי קשר</string>
     <string name="enter_full_name">הכנס שם מלא</string>
     <string name="enter_number_phone">הכנס מספר טלפון</string>
@@ -18,4 +17,16 @@
     <string name="best_days">ימים:</string>
     <string name="save">שמור</string>
     <string name="back">חזור</string>
+
+    <string-array name="days">
+        <item>ראשון</item>
+        <item>שני</item>
+        <item>שלישי</item>
+        <item>רביעי</item>
+        <item>חמישי</item>
+        <item>שישי</item>
+        <item>שבת</item>
+    </string-array>
+    <string name="chose_days">בחר ימים</string>
+    <string name="finish">סיים</string>
 </resources>

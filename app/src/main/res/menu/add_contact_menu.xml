@@ -13,6 +13,4 @@
         android:id="@+id/save_item"
         app:showAsAction="ifRoom"/>
 
-
-
 </menu>

@@ -16,4 +16,16 @@
     <string name="best_days">Best days:</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
+
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    <string name="chose_days">Chose days</string>
+    <string name="finish">Finish</string>
 </resources>
