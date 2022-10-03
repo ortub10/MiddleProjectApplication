@@ -1,7 +1,9 @@
 package com.example.middleprojectapplication;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,6 +18,8 @@ public class Contact implements Serializable {
     private String timeToCall;
     private ArrayList<String> bestDays;
     private Bitmap bitmap;
+
+    public Contact(){}
 
     public Contact(String fullName, String phoneNumber, String email, String homeAddress, String webAddress, String birthday, String timeToCall, ArrayList<String> bestDays, Bitmap bitmap) {
         this.fullName = fullName;
@@ -99,6 +103,15 @@ public class Contact implements Serializable {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50,out);
+        out.defaultWriteObject();
+    }
+    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{
+        bitmap = BitmapFactory.decodeStream(in);
+        in.defaultReadObject();
     }
 
 

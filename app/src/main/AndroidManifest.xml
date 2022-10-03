@@ -26,6 +26,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".AddContactActivity"/>
+        <activity android:name=".ContactListActivity"/>
     </application>
 
 </manifest>

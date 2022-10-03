@@ -17,5 +17,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddContactActivity.class);
             startActivity(intent);
         });
+        Button showContactBtn = findViewById(R.id.show_contact_btn);
+        showContactBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this,ContactListActivity.class);
+            startActivity(intent);
+        });
     }
 }

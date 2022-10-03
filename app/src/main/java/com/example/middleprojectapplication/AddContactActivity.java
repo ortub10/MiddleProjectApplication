@@ -32,12 +32,15 @@ public class AddContactActivity extends AppCompatActivity {
     String date;
     String time;
     Bitmap bitmap;
-    ArrayList<String> daysChosen;
     EditText fullNameEt;
     EditText numberPhoneEt;
     EditText emailAddressEt;
     EditText homeAddressEt;
     EditText webAddressEt;
+    TextView birthDateTv;
+    TextView timeToCallTv;
+    TextView bestDaysTv;
+    ArrayList<String> daysChosen;
     ActivityResultLauncher<Intent> imageResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -67,7 +70,7 @@ public class AddContactActivity extends AppCompatActivity {
             imageResult.launch(intent);
         });
 
-        TextView birthDateTv = findViewById(R.id.birth_date_input);
+        birthDateTv = findViewById(R.id.birth_date_input);
         Calendar calendar  = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -85,17 +88,17 @@ public class AddContactActivity extends AppCompatActivity {
             dpd.show();
         });
 
-        TextView timeToCallTv = findViewById(R.id.time_to_call_input);
+        timeToCallTv = findViewById(R.id.time_to_call_input);
         Button pickTimeToCallBtn = findViewById(R.id.pick_time_to_call_btn);
         pickTimeToCallBtn.setOnClickListener(view -> {
             TimePickerDialog tpd = new TimePickerDialog(this, (timePicker, i, i1) -> {
                 time = i+":"+i1;
                 timeToCallTv.setText(time);
             },hour,minutes,true);
-        tpd.show();
+            tpd.show();
         });
 
-        TextView bestDaysTv = findViewById(R.id.best_days_input);
+        bestDaysTv = findViewById(R.id.best_days_input);
         boolean [] booleans = {false,false,false,false,false,false,false};
         daysChosen = new ArrayList<>();
         Button pickBestDaysBtn = findViewById(R.id.pick_best_days_btn);
@@ -106,21 +109,22 @@ public class AddContactActivity extends AppCompatActivity {
             builder.setTitle(R.string.chose_days);
             builder.setCancelable(false);
             builder.setMultiChoiceItems(days, booleans, (dialogInterface, i, b) -> {
-               booleans[i] = b;
-               if (b){
-                   daysChosen.add(days[i]);
-               }
-               else {
+                booleans[i] = b;
+                if (b){
+                    daysChosen.add(days[i]);
+                }
+                else {
 
-                   daysChosen.remove(days[i]);
-               }
+                    daysChosen.remove(days[i]);
+                }
 
             });
             builder.setPositiveButton(R.string.finish, (dialogInterface, i) ->
-                bestDaysTv.setText(daysChosen.toString())
+                    bestDaysTv.setText(daysChosen.toString())
             );
             builder.show();
         });
+
     }
 
     @Override
@@ -132,6 +136,7 @@ public class AddContactActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_item){
+
             Contact contact = new Contact(
                     fullNameEt.getText().toString(),
                     numberPhoneEt.getText().toString(),
@@ -143,7 +148,19 @@ public class AddContactActivity extends AppCompatActivity {
                     daysChosen,
                     bitmap
             );
-            //here save contact
+
+            ContactManager manager = ContactManager.getInstance(this);
+            manager.addContact(contact);
+            fullNameEt.setText("");
+            numberPhoneEt.setText("");
+            emailAddressEt.setText("");
+            homeAddressEt.setText("");
+            webAddressEt.setText("");
+            birthDateTv.setText("");
+            timeToCallTv.setText("");
+            bestDaysTv.setText("");
+            profileImage.setImageBitmap(null);
+
         }
         if (item.getItemId() == R.id.back_item){
             finish();
