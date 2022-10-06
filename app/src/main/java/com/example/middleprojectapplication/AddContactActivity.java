@@ -42,6 +42,7 @@ public class AddContactActivity extends AppCompatActivity {
     TextView timeToCallTv;
     TextView bestDaysTv;
     ArrayList<String> daysChosen;
+    boolean [] booleans;
     ActivityResultLauncher<Intent> imageResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -105,7 +106,7 @@ public class AddContactActivity extends AppCompatActivity {
         });
 
         bestDaysTv = findViewById(R.id.best_days_input);
-        boolean [] booleans = {false,false,false,false,false,false,false};
+        booleans =  new boolean[]{false,false,false,false,false,false,false};
         daysChosen = new ArrayList<>();
         Button pickBestDaysBtn = findViewById(R.id.pick_best_days_btn);
         pickBestDaysBtn.setOnClickListener(view -> {
@@ -181,8 +182,12 @@ public class AddContactActivity extends AppCompatActivity {
                     webAddressEt.setText("");
                     birthDateTv.setText("");
                     timeToCallTv.setText("");
+                    daysChosen = new ArrayList<>();
+                    booleans =  new boolean[]{false,false,false,false,false,false,false};
                     bestDaysTv.setText("");
+                    bitmap = null;
                     profileImage.setImageBitmap(null);
+
 
                 }).setNegativeButton(R.string.no,null);
                 builder.show();
