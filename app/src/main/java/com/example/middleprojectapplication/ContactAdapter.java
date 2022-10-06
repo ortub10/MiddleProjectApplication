@@ -13,20 +13,30 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private final List<Contact> contacts;
-
+    private ContactListener listener;
     public ContactAdapter(List<Contact> contacts) {
         this.contacts = contacts;
     }
 
-    public static class  ContactViewHolder extends RecyclerView.ViewHolder{
+    public void setListener(ContactListener listener) {
+        this.listener = listener;
+    }
+
+    public class  ContactViewHolder extends RecyclerView.ViewHolder{
         TextView nameCardTv;
         ImageView imageCardIv;
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             nameCardTv = itemView.findViewById(R.id.name_card);
             imageCardIv = itemView.findViewById(R.id.image_card);
+            itemView.setOnClickListener(view -> {
+                if (listener !=null){
+                    listener.onClick(getAdapterPosition());
+                }
+            });
         }
     }
+
 
     @NonNull
     @Override

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -92,7 +93,12 @@ public class AddContactActivity extends AppCompatActivity {
         Button pickTimeToCallBtn = findViewById(R.id.pick_time_to_call_btn);
         pickTimeToCallBtn.setOnClickListener(view -> {
             TimePickerDialog tpd = new TimePickerDialog(this, (timePicker, i, i1) -> {
-                time = i+":"+i1;
+                if (i1<10){
+                    time = i+":0"+i1;
+                }
+                else {
+                    time = i+":"+i1;
+                }
                 timeToCallTv.setText(time);
             },hour,minutes,true);
             tpd.show();
@@ -137,30 +143,50 @@ public class AddContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.save_item){
 
-            Contact contact = new Contact(
-                    fullNameEt.getText().toString(),
-                    numberPhoneEt.getText().toString(),
-                    emailAddressEt.getText().toString(),
-                    homeAddressEt.getText().toString(),
-                    webAddressEt.getText().toString(),
-                    date,
-                    time,
-                    daysChosen,
-                    bitmap
-            );
+            if (fullNameEt.getText().toString().equals("")
+                    || numberPhoneEt.getText().toString().equals("")
+                    || emailAddressEt.getText().toString().equals("")
+                    || homeAddressEt.getText().toString().equals("")
+                    || webAddressEt.getText().toString().equals("")
+                    || birthDateTv.getText().toString().equals("")
+                    || timeToCallTv.getText().toString().equals("")
+                    || bestDaysTv.getText().toString().equals("")
+                    || bitmap == null
+            ){
+                Toast.makeText(this, R.string.please_enter_all_fields, Toast.LENGTH_SHORT).show();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.save_contact).setMessage(R.string.please_choose).setCancelable(false);
+                builder.setPositiveButton(R.string.yes, (dialogInterface, i) -> {
 
-            ContactManager manager = ContactManager.getInstance(this);
-            manager.addContact(contact);
-            fullNameEt.setText("");
-            numberPhoneEt.setText("");
-            emailAddressEt.setText("");
-            homeAddressEt.setText("");
-            webAddressEt.setText("");
-            birthDateTv.setText("");
-            timeToCallTv.setText("");
-            bestDaysTv.setText("");
-            profileImage.setImageBitmap(null);
+                    Contact contact = new Contact(
+                            fullNameEt.getText().toString(),
+                            numberPhoneEt.getText().toString(),
+                            emailAddressEt.getText().toString(),
+                            homeAddressEt.getText().toString(),
+                            webAddressEt.getText().toString(),
+                            date,
+                            time,
+                            daysChosen,
+                            bitmap
+                    );
 
+                    ContactManager manager = ContactManager.getInstance(this);
+                    manager.addContact(contact);
+                    fullNameEt.setText("");
+                    numberPhoneEt.setText("");
+                    emailAddressEt.setText("");
+                    homeAddressEt.setText("");
+                    webAddressEt.setText("");
+                    birthDateTv.setText("");
+                    timeToCallTv.setText("");
+                    bestDaysTv.setText("");
+                    profileImage.setImageBitmap(null);
+
+                }).setNegativeButton(R.string.no,null);
+                builder.show();
+            }
         }
         if (item.getItemId() == R.id.back_item){
             finish();

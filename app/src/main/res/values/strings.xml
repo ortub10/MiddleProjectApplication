@@ -28,4 +28,18 @@
     </string-array>
     <string name="chose_days">Chose days</string>
     <string name="finish">Finish</string>
+    <string name="please_enter_all_fields">Please enter all fields</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save_contact">Save a contact?</string>
+    <string name="please_choose">Please choose</string>
+    <string name="full_name">Full name:</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email_address">Email address:</string>
+    <string name="home_address">Home address:</string>
+    <string name="picture">Picture:</string>
+    <string name="web_site">Web site:</string>
+    <string name="date_of_birth">Date of birth:</string>
+    <string name="preferred_hour">Preferred hour:</string>
+    <string name="preferred_days">preferred days:</string>
 </resources>

@@ -29,4 +29,18 @@
     </string-array>
     <string name="chose_days">בחר ימים</string>
     <string name="finish">סיים</string>
+    <string name="please_enter_all_fields">נא להזין את כל השדות</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="save_contact">"לשמור איש קשר? "</string>
+    <string name="please_choose">אנא בחר</string>
+    <string name="full_name">שם מלא:</string>
+    <string name="phone_number">מספר טלפון:</string>
+    <string name="email_address">כתובת אימייל:</string>
+    <string name="home_address">כתובת מגורים:</string>
+    <string name="picture">תמונה:</string>
+    <string name="web_site">אתר אינטרנט:</string>
+    <string name="date_of_birth">תאריך לידה:</string>
+    <string name="preferred_hour">שעה מועדפת:</string>
+    <string name="preferred_days">ימים מועדפים:</string>
 </resources>
