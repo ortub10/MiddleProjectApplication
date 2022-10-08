@@ -23,7 +23,7 @@ public class ContactListActivity extends AppCompatActivity {
         ContactAdapter contactAdapter = new ContactAdapter(manager.getContacts());
         contactAdapter.setListener(position -> {
             Contact contact = manager.getContacts().get(position);
-            Intent intent = new Intent(this,ContactDetailsLayoutActivity.class);
+            Intent intent = new Intent(this, ContactDetailsActivity.class);
             intent.putExtra("full_name",contact.getFullName());
             intent.putExtra("phone_number",contact.getPhoneNumber());
             intent.putExtra("email",contact.getEmail());

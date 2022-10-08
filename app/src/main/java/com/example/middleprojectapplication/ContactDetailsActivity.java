@@ -1,5 +1,8 @@
 package com.example.middleprojectapplication;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -7,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ContactDetailsLayoutActivity extends AppCompatActivity {
+public class ContactDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,5 +34,39 @@ public class ContactDetailsLayoutActivity extends AppCompatActivity {
         dateOfBirthOutputTv.setText(getIntent().getStringExtra("birth_day"));
         preferredHourOutputTv.setText(getIntent().getStringExtra("time_call"));
         preferredDaysOutputTv.setText(getIntent().getStringArrayListExtra("best_days").toString());
+
+        phoneNumberOutputTv.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:"+phoneNumberOutputTv.getText().toString()));
+            startActivity(intent);
+        });
+
+        emailAddressOutputTv.setOnClickListener(view -> {
+            String address = emailAddressOutputTv.getText().toString();
+            Intent intent  = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, "This is the email body");
+            intent.putExtra(Intent.EXTRA_SUBJECT,"This is the email subject");
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{address});
+            intent.setType("text/html");
+            startActivity(intent);
+        });
+
+        homeAddressOutputTv.setOnClickListener(view -> {
+            try {
+                String url = "https://waze.com/ul?q="+homeAddressOutputTv.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            } catch (ActivityNotFoundException ex) {
+                // If Waze is not installed, open it in Google Play:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.waze"));
+                startActivity(intent);
+            }
+        });
+
+        webAddressOutputTv.setOnClickListener(view -> {
+            String site = webAddressOutputTv.getText().toString();
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+site));
+            startActivity(intent);
+        });
     }
 }
