@@ -17,7 +17,7 @@ public class Contact implements Serializable {
     private String birthday;
     private String timeToCall;
     private ArrayList<String> bestDays;
-    private Bitmap bitmap;
+    transient private Bitmap bitmap;
 
     public Contact(){}
 
