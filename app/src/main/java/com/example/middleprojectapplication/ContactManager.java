@@ -48,7 +48,13 @@ public class ContactManager {
         saveContacts();
     }
 
-    private void saveContacts() {
+    public void removeContact(int position){
+        if (position < contacts.size())
+            contacts.remove(position);
+        saveContacts();
+    }
+
+    private  void saveContacts() {
 
         try {
             FileOutputStream fos = context.openFileOutput(FILE_NAME,Context.MODE_PRIVATE);
