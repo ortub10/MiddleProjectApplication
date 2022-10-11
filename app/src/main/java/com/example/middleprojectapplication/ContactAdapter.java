@@ -34,6 +34,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                     listener.onClick(getAdapterPosition());
                 }
             });
+
+            itemView.setOnLongClickListener(view -> {
+                if (listener !=null){
+                    listener.onLongClick(getAdapterPosition());
+                }
+                return false;
+            });
         }
     }
 
