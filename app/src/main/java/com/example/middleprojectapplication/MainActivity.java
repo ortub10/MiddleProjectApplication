@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button addContactBtn = findViewById(R.id.add_contact_btn);
         addContactBtn.setOnClickListener(view -> {
             Intent intent = new Intent(this, AddContactActivity.class);
+            intent.putExtra("update","add");
             startActivity(intent);
         });
         Button showContactBtn = findViewById(R.id.show_contact_btn);

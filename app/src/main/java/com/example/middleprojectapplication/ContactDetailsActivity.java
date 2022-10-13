@@ -4,13 +4,17 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ContactDetailsActivity extends AppCompatActivity {
+    int position;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +29,18 @@ public class ContactDetailsActivity extends AppCompatActivity {
         TextView preferredHourOutputTv = findViewById(R.id.time_to_call_output);
         TextView preferredDaysOutputTv = findViewById(R.id.best_days_output);
 
-        fullNameOutputTv.setText(getIntent().getStringExtra("full_name"));
-        phoneNumberOutputTv.setText(getIntent().getStringExtra("phone_number"));
-        emailAddressOutputTv.setText(getIntent().getStringExtra("email"));
-        homeAddressOutputTv.setText(getIntent().getStringExtra("home_address"));
-        profileIv.setImageBitmap(getIntent().getParcelableExtra("image"));
-        webAddressOutputTv.setText(getIntent().getStringExtra("web_site"));
-        dateOfBirthOutputTv.setText(getIntent().getStringExtra("birth_day"));
-        preferredHourOutputTv.setText(getIntent().getStringExtra("time_call"));
-        preferredDaysOutputTv.setText(getIntent().getStringArrayListExtra("best_days").toString());
+        position = getIntent().getIntExtra("position",-1);
+
+        Contact contact = ContactManager.getInstance(this).getContacts().get(position);
+        fullNameOutputTv.setText(contact.getFullName());
+        phoneNumberOutputTv.setText(contact.getPhoneNumber());
+        emailAddressOutputTv.setText(contact.getEmail());
+        homeAddressOutputTv.setText(contact.getHomeAddress());
+        profileIv.setImageBitmap(contact.getBitmap());
+        webAddressOutputTv.setText(contact.getWebAddress());
+        dateOfBirthOutputTv.setText(contact.getBirthday());
+        preferredHourOutputTv.setText(contact.getTimeToCall());
+        preferredDaysOutputTv.setText(contact.getBestDays().toString());
 
         phoneNumberOutputTv.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -68,5 +75,22 @@ public class ContactDetailsActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+site));
             startActivity(intent);
         });
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detailes_contact_menue,menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.update_contact){
+            Intent intent = new Intent(this,AddContactActivity.class);
+            intent.putExtra("update","update");
+            intent.putExtra("position",position);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

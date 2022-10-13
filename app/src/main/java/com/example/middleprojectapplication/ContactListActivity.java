@@ -25,17 +25,8 @@ public class ContactListActivity extends AppCompatActivity {
         contactAdapter.setListener(new ContactListener() {
             @Override
             public void onClick(int position) {
-                Contact contact = manager.getContacts().get(position);
                 Intent intent = new Intent(ContactListActivity.this, ContactDetailsActivity.class);
-                intent.putExtra("full_name",contact.getFullName());
-                intent.putExtra("phone_number",contact.getPhoneNumber());
-                intent.putExtra("email",contact.getEmail());
-                intent.putExtra("home_address",contact.getHomeAddress());
-                intent.putExtra("image",contact.getBitmap());
-                intent.putExtra("web_site",contact.getWebAddress());
-                intent.putExtra("birth_day",contact.getBirthday());
-                intent.putExtra("time_call",contact.getTimeToCall());
-                intent.putExtra("best_days",contact.getBestDays());
+                intent.putExtra("position",position);
                 startActivity(intent);
             }
 

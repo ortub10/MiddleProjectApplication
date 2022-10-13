@@ -41,8 +41,10 @@ public class AddContactActivity extends AppCompatActivity {
     TextView birthDateTv;
     TextView timeToCallTv;
     TextView bestDaysTv;
-    ArrayList<String> daysChosen;
+    ArrayList<String> daysChosen = new ArrayList<>();
     boolean [] booleans;
+    String update;
+    int position;
     ActivityResultLauncher<Intent> imageResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -59,20 +61,43 @@ public class AddContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_contact_layout);
 
+        update = getIntent().getStringExtra("update");
+        position = getIntent().getIntExtra("position",-1);
+
         fullNameEt = findViewById(R.id.full_name_input);
         numberPhoneEt = findViewById(R.id.number_phone_input);
         emailAddressEt = findViewById(R.id.email_address_input);
         homeAddressEt = findViewById(R.id.home_address_input);
         webAddressEt = findViewById(R.id.web_address_input);
-
         profileImage = findViewById(R.id.image_input);
+        birthDateTv = findViewById(R.id.birth_date_input);
+        timeToCallTv = findViewById(R.id.time_to_call_input);
+        bestDaysTv = findViewById(R.id.best_days_input);
+
+        if (update.equals("update")){
+            Contact contact = ContactManager.getInstance(this).getContacts().get(position);
+            bitmap = contact.getBitmap();
+            profileImage.setImageBitmap(bitmap);
+            fullNameEt.setText(contact.getFullName());
+            numberPhoneEt.setText(contact.getPhoneNumber());
+            emailAddressEt.setText(contact.getEmail());
+            homeAddressEt.setText(contact.getHomeAddress());
+            webAddressEt.setText(contact.getWebAddress());
+            date = contact.getBirthday();
+            birthDateTv.setText(date);
+            time = contact.getTimeToCall();
+            timeToCallTv.setText(time);
+            daysChosen = contact.getBestDays();
+            bestDaysTv.setText(daysChosen.toString());
+
+        }
+
         Button takePictureBtn = findViewById(R.id.take_pic_btn);
         takePictureBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             imageResult.launch(intent);
         });
 
-        birthDateTv = findViewById(R.id.birth_date_input);
         Calendar calendar  = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -90,7 +115,6 @@ public class AddContactActivity extends AppCompatActivity {
             dpd.show();
         });
 
-        timeToCallTv = findViewById(R.id.time_to_call_input);
         Button pickTimeToCallBtn = findViewById(R.id.pick_time_to_call_btn);
         pickTimeToCallBtn.setOnClickListener(view -> {
             TimePickerDialog tpd = new TimePickerDialog(this, (timePicker, i, i1) -> {
@@ -105,12 +129,9 @@ public class AddContactActivity extends AppCompatActivity {
             tpd.show();
         });
 
-        bestDaysTv = findViewById(R.id.best_days_input);
         booleans =  new boolean[]{false,false,false,false,false,false,false};
-        daysChosen = new ArrayList<>();
         Button pickBestDaysBtn = findViewById(R.id.pick_best_days_btn);
         pickBestDaysBtn.setOnClickListener(view -> {
-
             String[] days = getResources().getStringArray(R.array.days);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.chose_days);
@@ -160,6 +181,7 @@ public class AddContactActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.save_contact).setMessage(R.string.please_choose).setCancelable(false);
                 builder.setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    ContactManager manager = ContactManager.getInstance(this);
 
                     Contact contact = new Contact(
                             fullNameEt.getText().toString(),
@@ -173,8 +195,8 @@ public class AddContactActivity extends AppCompatActivity {
                             bitmap
                     );
 
-                    ContactManager manager = ContactManager.getInstance(this);
                     manager.addContact(contact);
+
                     fullNameEt.setText("");
                     numberPhoneEt.setText("");
                     emailAddressEt.setText("");
@@ -188,6 +210,11 @@ public class AddContactActivity extends AppCompatActivity {
                     bitmap = null;
                     profileImage.setImageBitmap(null);
 
+                    if (update.equals("update")){
+                        manager.removeContact(position);
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                    }
 
                 }).setNegativeButton(R.string.no,null);
                 builder.show();
