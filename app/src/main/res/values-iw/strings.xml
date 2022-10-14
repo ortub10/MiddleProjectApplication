@@ -44,5 +44,5 @@
     <string name="preferred_hour">שעה מועדפת:</string>
     <string name="preferred_days">ימים מועדפים:</string>
     <string name="remove_contact">למחוק איש קשר?</string>
-    <string name="update_contact">עדכן איש קשר</string>
+    <string name="edit_contact">ערוך איש קשר</string>
 </resources>
