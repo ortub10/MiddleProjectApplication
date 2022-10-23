@@ -60,3 +60,8 @@ By long click there is this dialog
 <img src = "https://user-images.githubusercontent.com/102150516/195090713-18bd3706-7cac-4eb8-a1e3-059b6abf8c9a.jpg" width=300 > <img src = "https://user-images.githubusercontent.com/102150516/195090724-fb5424f5-1894-447f-992b-14ef0b3a5c3f.jpg" width=300 >
 
 
+You can edit a contact:
+
+------------default(English)-----------------------------------------Hebrew--------------
+
+<img src = "https://user-images.githubusercontent.com/102150516/197383514-c946be6d-dab6-48d6-b0dd-ab04d9a79336.jpg" width=300 > <img src = "https://user-images.githubusercontent.com/102150516/197383515-74842013-6036-4017-90ac-29d6e2d47785.jpg" width=300 >
